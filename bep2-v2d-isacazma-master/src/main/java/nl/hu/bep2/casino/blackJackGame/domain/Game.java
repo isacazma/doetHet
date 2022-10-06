@@ -6,22 +6,26 @@ import nl.hu.bep2.casino.blackJackGame.exception.CardValuesToHighException;
 import nl.hu.bep2.casino.blackJackGame.presentation.dto.PotGame;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name ="blackJackTable")
 
-public class Game {
+
+public class Game implements Serializable {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player")
     private Player player;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dealer")
     private Dealer dealer;
 
     private State state = State.STARTGAME;
-    @Id
-    @GeneratedValue
-    private Long id;
+
 
 
     public Game( Player player, Dealer dealer) {

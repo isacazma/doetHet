@@ -1,11 +1,12 @@
 package nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Hand {
+public class Hand implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.ALL)

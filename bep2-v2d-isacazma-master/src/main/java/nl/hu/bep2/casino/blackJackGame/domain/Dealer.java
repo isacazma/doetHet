@@ -6,9 +6,10 @@ import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Card;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Deck;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Dealer {
+public class Dealer implements Serializable {
     @OneToOne(cascade = {CascadeType.ALL})
     private Hand hand;
 

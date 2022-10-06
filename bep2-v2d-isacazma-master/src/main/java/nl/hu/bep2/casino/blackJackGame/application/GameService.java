@@ -91,11 +91,9 @@ public class GameService {
         System.out.println(d.getDealer().getId() );
         System.out.println(d.getDealer().getHand() );
         System.out.println(d.getDealer().getDeck() );
-        System.out.println(d.getDealer().getId() );
+        System.out.println(d.getPlayer().getId() );
        this.blackJackRepository.save(d);
-        return new Game(
-                game.getPlayer(),
-                game.getDealer()
+        return new Game  (d.getPlayer(),d.getDealer()
 
         );
     }

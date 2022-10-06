@@ -33,7 +33,8 @@ public class GameController {
     public Game start(Authentication authentication) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 
-        return (this.gameService.StartGame(profile.getUsername(), service));
+     Game  g = this.gameService.StartGame(profile.getUsername(), service);
+     return g;
 
     }
 
