@@ -50,4 +50,12 @@ public class Player implements Person {
     public int getTotaal(){
         return  hand.total();
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", hand=" + hand +
+                '}';
+    }
 }

@@ -30,12 +30,10 @@ public class GameController {
     }
 
     @PostMapping("/startGame")
-    public GameView start(Authentication authentication) {
+    public Game start(Authentication authentication) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 
-       Game game = this.gameService.StartGame(profile.getUsername(), service);
-
-        return createGameView(game);
+        return (this.gameService.StartGame(profile.getUsername(), service));
 
     }
 

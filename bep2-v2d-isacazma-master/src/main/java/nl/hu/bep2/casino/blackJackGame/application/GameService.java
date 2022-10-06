@@ -60,12 +60,10 @@ public class GameService {
 
         Game game = new Game(player, dealer);
 
-        System.out.println(game.getDealer().getDeck().getCards());
-        game = blackJackRepository.save(game);
+        System.out.println(game.getDealer().getId());
 
-//        return this.showBalanceFor(game);
+        return this.showBalanceFor(game);
 
-        return game;
     }
     public Game hit() {
         //player gets a card
@@ -81,9 +79,24 @@ public class GameService {
         return this.blackJackRepository.save(game);
     }
     private Game showBalanceFor(Game game) {
+        System.out.println(game.getId());
+        System.out.println("en dit dan");
+        this.game = game;
+
+        Game d = new Game();
+        d.setPlayer(game.getPlayer());
+        d.setDealer(game.getDealer());
+        System.out.println(d );
+        System.out.println(d.getDealer());
+        System.out.println(d.getDealer().getId() );
+        System.out.println(d.getDealer().getHand() );
+        System.out.println(d.getDealer().getDeck() );
+        System.out.println(d.getDealer().getId() );
+       this.blackJackRepository.save(d);
         return new Game(
                 game.getPlayer(),
                 game.getDealer()
+
         );
     }
 

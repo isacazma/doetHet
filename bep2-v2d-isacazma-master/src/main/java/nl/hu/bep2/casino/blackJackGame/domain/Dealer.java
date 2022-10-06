@@ -1,5 +1,6 @@
 package nl.hu.bep2.casino.blackJackGame.domain;
 
+import nl.hu.bep2.casino.blackJackGame.application.DeckFactory;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Hand;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Card;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Deck;
@@ -11,14 +12,19 @@ public class Dealer {
     @OneToOne(cascade = {CascadeType.ALL})
     private Hand hand;
 
-    @Lob
-//    @JoinColumn(name = "deck")
+    @OneToOne(cascade = {CascadeType.ALL})
     private Deck deck;
 
     @Id
     @GeneratedValue
     private Long id;
-
+//    public Dealer(Hand hand) {
+//        this.hand = hand;
+//        DeckFactory h = new DeckFactory();
+//        deck = new Deck();
+//
+//
+//         deck = h.get
 
     public Dealer(Deck deck, Hand hand) {
         this.deck = deck;
@@ -30,6 +36,7 @@ public class Dealer {
         this.hand = hand;
     }
     public Dealer() {}
+
 public Hand getCardFromDeck(){
         return hand;
 }
@@ -46,11 +53,18 @@ public Hand getCardFromDeck(){
     }
 
     public Deck getDeck() {
-        return deck;
+        DeckFactory h = new DeckFactory();
+
+        return h.getRandomDeck();
     }
 
     public void setDeck(Deck deck) {
         this.deck = deck;
+    }
+    public Deck setNewDeck(){
+        DeckFactory h = new DeckFactory();
+
+        return h.getRandomDeck();
     }
 
     public Long getId() {
@@ -59,5 +73,14 @@ public Hand getCardFromDeck(){
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "hand=" + hand +
+                ", deck=" + deck +
+                ", id=" + id +
+                '}';
     }
 }

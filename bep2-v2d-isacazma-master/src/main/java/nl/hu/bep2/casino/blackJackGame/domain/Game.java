@@ -81,13 +81,15 @@ public class Game {
         this.state = state;
     }
 
+
+
     @Override
     public String toString() {
         return "Game{" +
-
-                ", player='" + player + '\'' +
-                ", dealer='" + dealer + '\'' +
-
+                "player=" + player +
+                ", dealer=" + dealer +
+                ", state=" + state +
+                ", id=" + id +
                 '}';
     }
 }
