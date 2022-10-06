@@ -1,0 +1,22 @@
+package nl.hu.bep2.casino.blackJackGame.data;
+
+
+import nl.hu.bep2.casino.blackJackGame.domain.Game;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface GameRepository extends JpaRepository<Game, Long> {
+//
+//    @Override
+//    List<Game> findAll();
+//
+//    @Override
+//    Optional<Game> findById(Long aLong);
+//
+//    @Override
+//    <S extends Game> S save(S s);
+//
+//    @Override
+//    void deleteAll();
+}
+

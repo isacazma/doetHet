@@ -1,0 +1,58 @@
+https://stackoverflow.com/questions/50389100/how-to-create-a-variable-from-another-class-object
+
+https://stackoverflow.com/questions/70912169/how-can-i-pass-an-entity-as-a-attribute-to-another-entity
+
+https://stackoverflow.com/questions/13853084/how-get-attribute-relation-from-another-entity-class-java-persistance-api-and-sh
+
+https://stackoverflow.com/questions/24651183/jpa-reference-other-entity-in-an-entity-constructor
+
+https://stackoverflow.com/questions/8326380/how-can-i-cast-from-one-class-to-another-class-in-hibernate
+
+
+difference-between-one-to-many-many-to-one-and-many-to-many:
+
+    1: https://stackoverflow.com/questions/3113885/difference-between-one-to-many-many-to-one-and-many-to-many
+
+        Looks like everyone is answering One-to-many vs. Many-to-many:
+        The difference between One-to-many, Many-to-one and Many-to-Many is:
+
+        One-to-many vs Many-to-one is a matter of perspective. Unidirectional vs Bidirectional will not affect the mapping but will make difference on how you can access your data.
+
+        In Many-to-one the many side will keep reference of the one side. A good example is "A State has Cities". In this case State is the one side and City is the many side. There will be a column state_id in the table cities.
+        In unidirectional, Person class will have List<Skill> skills but Skill will not have Person person. In bidirectional, both properties are added and it allows you to access a Person given a skill( i.e. skill.person).
+
+        In One-to-Many the one side will be our point of reference. For example, "A User has Addresses". In this case we might have three columns address_1_id, address_2_id and address_3_id or a look up table with multi column unique constraint on user_id on address_id.
+        In unidirectional, a User will have Address address. Bidirectional will have an additional List<User> users in the Address class.
+
+        In Many-to-Many members of each party can hold reference to arbitrary number of members of the other party. To achieve this a look up table is used. Example for this is the relationship between doctors and patients. A doctor can have many patients and vice versa.
+    Kort uitleg
+
+    2: difference-between-one-to-many-and-many-to-one-relationship
+    link : https://stackoverflow.com/questions/4601703/difference-between-one-to-many-and-many-to-one-relationship
+
+
+
+    3: @lob grote Object
+    link : https://www.baeldung.com/hibernate-lob
+    Voorbeeld:
+    Our model “User” has id, name, and photo as properties. We'll store an image in the User‘s photo property, and we will map it to a BLOB:
+
+      @Entity
+      @Table(name="user")
+      public class User {
+
+          @Id
+          private String id;
+
+          @Column(name = "name", columnDefinition="VARCHAR(128)")
+          private String name;
+
+          @Lob
+          @Column(name = "photo", columnDefinition="BLOB")
+          private byte[] photo;
+
+          // ...
+      }
+      The @Lob annotation specifies that the database should store the property as Large Object. The columnDefinition in the @Column annotation defines the column type for the property.
+
+      Since we're going to save byte array, we're using BLOB.
