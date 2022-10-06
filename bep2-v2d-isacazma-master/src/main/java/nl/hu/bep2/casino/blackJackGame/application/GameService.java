@@ -6,9 +6,15 @@ import nl.hu.bep2.casino.blackJackGame.domain.Game;
 import nl.hu.bep2.casino.blackJackGame.domain.Player;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Deck;
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Hand;
+import nl.hu.bep2.casino.blackJackGame.exception.CardValuesToHighException;
+import nl.hu.bep2.casino.blackJackGame.exception.GameAlreadyEndedException;
+import nl.hu.bep2.casino.blackJackGame.exception.GameNotStartedException;
+import nl.hu.bep2.casino.blackJackGame.exception.NoGameHasBeenFoundException;
 import nl.hu.bep2.casino.chips.application.ChipsService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -16,12 +22,6 @@ import javax.transaction.Transactional;
 @Service
 public class GameService {
     private final BlackJackRepository blackJackRepository;
-//    private final DealerRepossitory dealerRepossitory;
-////    private final DeckRepossitory deckRepossitory;
-//    private final PlayerRepository playerRepository;
-//    private final HandRepository handRepository;
-//    private final CardRepository cardRepository;
-//    private  CarrdService carrdService;
     private String playerName;
     private Game game;
     private Dealer dealer;
@@ -61,12 +61,33 @@ public class GameService {
         Game game = new Game(player, dealer);
 
         System.out.println(game.getDealer().getDeck().getCards());
-        return this.showBalanceFor(game);
+        game = blackJackRepository.save(game);
+
+//        return this.showBalanceFor(game);
+
+        return game;
+    }
+    public Game hit() {
+        //player gets a card
+        try {
+            game.hit();
+        } catch (CardValuesToHighException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        } catch (GameAlreadyEndedException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        } catch (GameNotStartedException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
+        return this.blackJackRepository.save(game);
     }
     private Game showBalanceFor(Game game) {
         return new Game(
                 game.getPlayer(),
                 game.getDealer()
         );
+    }
+
+    public Game findById(Long id) {
+        return blackJackRepository.findById(id).orElseThrow(() -> new NoGameHasBeenFoundException("No game has been found with id: " + id));
     }
 }

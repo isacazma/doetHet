@@ -11,11 +11,12 @@ public interface BlackJackRepository extends JpaRepository<Game, Long> {
 //    @Override
 //    List<Game> findAll();
 
+    @Override
+    Optional<Game> findById(Long aLong);
 
-    Optional<Game> findById(Long id);
 
-//    @Override
-//    <S extends Game> S save(S s);
+    @Override
+    <S extends Game> S save(S s);
 
 //    @Override
 //    void deleteAll();

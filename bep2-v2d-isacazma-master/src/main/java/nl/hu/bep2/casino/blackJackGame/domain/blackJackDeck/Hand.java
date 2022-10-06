@@ -1,7 +1,5 @@
 package nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck;
 
-import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Card;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,18 @@ public class Hand {
     private Long id;
 
 
+
+    public int total() {
+        int sum = 0;
+        for(Card c : cards) {
+            c.getWaardeKaart();
+        }
+        while (sum > 21 && cards.contains(WaardeKaart.Aas)) {
+            sum -= 10;
+        }
+
+        return sum;
+    }
 
     public List<Card> getCards() {
         return cards;

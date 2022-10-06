@@ -10,8 +10,8 @@ public class Player implements Person {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "hand_id")
+    @OneToOne(cascade = CascadeType.ALL)
+
     private Hand hand;
 
     public Player() {
@@ -38,13 +38,16 @@ public class Player implements Person {
 
 
 
-    @Override
+
     public int TotalScoreCardsinHand() {
         return 0;
     }
 
-    @Override
+
     public Hand getHand() {
-        return null;
+        return hand;
+    }
+    public int getTotaal(){
+        return  hand.total();
     }
 }

@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 public class Dealer {
     @OneToOne(cascade = {CascadeType.ALL})
-//    @JoinColumn(name = "hand")
     private Hand hand;
 
     @Lob
@@ -31,7 +30,9 @@ public class Dealer {
         this.hand = hand;
     }
     public Dealer() {}
-
+public Hand getCardFromDeck(){
+        return hand;
+}
     public Hand getHand() {
         return null;
     }

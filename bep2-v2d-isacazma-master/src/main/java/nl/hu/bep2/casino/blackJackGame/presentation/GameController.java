@@ -40,6 +40,10 @@ public class GameController {
     }
 
 
+    @PostMapping("/hit")
+    public Game hit() {
+        return this.gameService.hit();
+    }
 
     private GameView createGameView(Game game) {
         return new GameView(

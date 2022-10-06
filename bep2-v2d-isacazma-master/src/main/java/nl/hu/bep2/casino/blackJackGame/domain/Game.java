@@ -2,6 +2,7 @@ package nl.hu.bep2.casino.blackJackGame.domain;
 
 
 import nl.hu.bep2.casino.blackJackGame.domain.blackJackDeck.Deck;
+import nl.hu.bep2.casino.blackJackGame.exception.CardValuesToHighException;
 import nl.hu.bep2.casino.blackJackGame.presentation.dto.PotGame;
 
 import javax.persistence.*;
@@ -10,10 +11,10 @@ import javax.persistence.*;
 @Table(name ="blackJackTable")
 
 public class Game {
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player")
     private Player player;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dealer")
     private Dealer dealer;
 
@@ -31,6 +32,22 @@ public class Game {
 
     public Game() {
     }
+    public void hit() {
+        //Gives player one card
+
+        if (player.getTotaal() < 21) {
+            player.getHand().addCard(dealer.getCard());
+//            player.addCard(dealer.handOutCard());
+        } else {
+            throw new CardValuesToHighException(
+                    String.format(
+                            "Cannot hit because cardValues of %d is higher than 21.",
+                            player.getTotaal()
+                    )
+            );
+        }
+    }
+
 
     public Long getId() {
         return id;
